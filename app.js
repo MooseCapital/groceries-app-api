@@ -7,6 +7,7 @@ const cors = require('cors')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testRouter = require('./routes/testRouter');
+const groceryRouter = require('./routes/groceries');
 const {mainLimiter, testLimiter} = require("./rateLimits");
 const helmet = require('helmet');
 const cronJobs = require('./cronJobs');
@@ -62,7 +63,7 @@ corsOptions = {
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 //cors not enabled by default
-app.use(cors(corsOptions))
+app.use(cors())
 
 
 //if we want to customize rate limits on routes, put the routes above the limiter middleware, otherwise leave below for main limiter
@@ -72,9 +73,10 @@ app.use(cors(corsOptions))
 //app.set('trust proxy', number of proxies)
 
 app.use(mainLimiter)
-app.use('/',validateApiKey, indexRouter);
-app.use('/test',validateApiKey, testRouter);
-app.use('/users',validateApiKey, usersRouter);
+app.use('/', indexRouter);
+app.use('/groceries', groceryRouter);
+app.use('/test', testRouter);
+app.use('/users', usersRouter);
 
 
 // catch 404 and forward to error handler
