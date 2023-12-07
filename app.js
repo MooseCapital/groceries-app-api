@@ -75,8 +75,8 @@ app.use(cors())
 app.use(mainLimiter)
 app.use('/', indexRouter);
 app.use('/groceries', groceryRouter);
-app.use('/test', testRouter);
-app.use('/users', usersRouter);
+// app.use('/test',validateApiKey, testRouter);
+// app.use('/users',validateApiKey, usersRouter);
 
 
 // catch 404 and forward to error handler
